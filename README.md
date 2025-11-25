@@ -20,9 +20,9 @@ Full-stack VNC session manager built for multi-user remote access workflows.
    ```
 
 2. Access the application:
-   - Frontend: http://localhost:8081
-   - Backend API: http://localhost:3001
-   - Nginx (reverse proxy): http://localhost:8082
+   - Frontend: http://localhost:9002
+   - Backend API: http://localhost:9001
+   - Nginx (reverse proxy): http://localhost:9003
 
 ### Development
 
