@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { Layout } from 'lucide-react';
 
 // Placeholder components
 const Dashboard = () => <div className="p-4">Dashboard Content</div>;
