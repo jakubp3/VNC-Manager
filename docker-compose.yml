@@ -33,6 +33,21 @@ services:
       - vnc_network
     restart: always
 
+  # noVNC service for web-based VNC access
+  # This provides a web interface to connect to VNC servers
+  # Access at http://localhost:6080/vnc.html
+  novnc:
+    image: theasp/novnc:latest
+    environment:
+      - DISPLAY_WIDTH=1280
+      - DISPLAY_HEIGHT=720
+      - RUN_XTERM=no
+    ports:
+      - "6080:8080"
+    networks:
+      - vnc_network
+    restart: always
+
   nginx:
     image: nginx:alpine
     volumes:
