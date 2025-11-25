@@ -1,9 +1,6 @@
-version: '3.8'
-
 services:
   postgres:
     image: postgres:15-alpine
-    container_name: vnc_manager_db
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
@@ -16,7 +13,6 @@ services:
 
   backend:
     build: ./backend
-    container_name: vnc_manager_backend
     environment:
       DATABASE_URL: postgres://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-vnc_manager}
       PORT: 3000
@@ -31,7 +27,6 @@ services:
 
   frontend:
     build: ./frontend
-    container_name: vnc_manager_frontend
     ports:
       - "80:80"
     networks:
@@ -40,7 +35,6 @@ services:
 
   nginx:
     image: nginx:alpine
-    container_name: vnc_manager_nginx
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
     ports:
