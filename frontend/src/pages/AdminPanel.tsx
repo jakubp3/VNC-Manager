@@ -15,7 +15,7 @@ export const AdminPanel = () => {
     const [users, setUsers] = useState<User[]>([]);
     const [loading, setLoading] = useState(true);
 
-    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:9001/api';
+    const API_URL = import.meta.env.VITE_API_URL || '/api';
     const token = localStorage.getItem('token');
 
     const fetchUsers = async () => {
@@ -137,8 +137,8 @@ export const AdminPanel = () => {
                                             <td className="px-6 py-4 whitespace-nowrap">
                                                 <span
                                                     className={`px-2 py-1 text-xs rounded ${user.role === 'ADMIN'
-                                                            ? 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200'
-                                                            : 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200'
+                                                        ? 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200'
+                                                        : 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200'
                                                         }`}
                                                 >
                                                     {user.role}

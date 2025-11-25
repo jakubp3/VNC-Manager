@@ -16,7 +16,7 @@ export const MachineList: React.FC<MachineListProps> = ({
 }) => {
     const [showAddForm, setShowAddForm] = useState(false);
     const [formData, setFormData] = useState({ name: '', host: '', port: 5900, password: '', isShared: false });
-    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:9001/api';
+    const API_URL = import.meta.env.VITE_API_URL || '/api';
     const token = localStorage.getItem('token');
 
     const handleCreate = async (e: React.FormEvent) => {

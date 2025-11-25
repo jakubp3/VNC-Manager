@@ -22,7 +22,7 @@ export const Dashboard = () => {
     const [activeTab, setActiveTab] = useState<number | null>(null);
     const [loading, setLoading] = useState(true);
 
-    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:9001/api';
+    const API_URL = import.meta.env.VITE_API_URL || '/api';
     const token = localStorage.getItem('token');
 
     const fetchMachines = async () => {
