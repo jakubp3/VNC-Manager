@@ -1,21 +1,17 @@
 import { Router } from 'express';
+import authController from '../controllers/auth.controller';
+import usersController from '../controllers/users.controller';
+import machinesController from '../controllers/machines.controller';
 
 const router = Router();
 
-// Auth routes
-router.post('/auth/login', (req, res) => { res.json({ message: 'Login' }); });
-router.post('/auth/register', (req, res) => { res.json({ message: 'Register' }); });
+// Auth routes (public)
+router.use('/auth', authController);
 
-// Machine routes
-router.get('/machines', (req, res) => { res.json({ message: 'List machines' }); });
-router.post('/machines', (req, res) => { res.json({ message: 'Create machine' }); });
-router.put('/machines/:id', (req, res) => { res.json({ message: 'Update machine' }); });
-router.delete('/machines/:id', (req, res) => { res.json({ message: 'Delete machine' }); });
+// User management routes (protected, admin only)
+router.use('/users', usersController);
 
-// Favorites
-router.post('/favorites/:machineId', (req, res) => { res.json({ message: 'Toggle favorite' }); });
-
-// Activity Logs
-router.get('/activity-logs', (req, res) => { res.json({ message: 'List logs' }); });
+// VNC machine routes (protected)
+router.use('/vnc-machines', machinesController);
 
 export default router;
