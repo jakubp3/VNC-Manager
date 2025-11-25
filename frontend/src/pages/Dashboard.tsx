@@ -29,12 +29,11 @@ export const Dashboard = () => {
         try {
             const response = await fetch(`${API_URL}/vnc-machines`, {
                 headers: {
-                    'Authorization': `Bearer ${token}`,
+                    Authorization: `Bearer ${token}`,
                 },
             });
-
             if (response.ok) {
-                const data = await response.json();
+                const data: VncMachine[] = await response.json();
                 setMachines(data);
             }
         } catch (error) {
@@ -49,21 +48,21 @@ export const Dashboard = () => {
     }, []);
 
     const openMachine = (machine: VncMachine) => {
-        if (!openTabs.find(t => t.id === machine.id)) {
+        if (!openTabs.find((t) => t.id === machine.id)) {
             setOpenTabs([...openTabs, machine]);
         }
         setActiveTab(machine.id);
     };
 
     const closeTab = (machineId: number) => {
-        setOpenTabs(openTabs.filter(t => t.id !== machineId));
+        setOpenTabs(openTabs.filter((t) => t.id !== machineId));
         if (activeTab === machineId) {
             setActiveTab(openTabs[0]?.id || null);
         }
     };
 
-    const sharedMachines = machines.filter(m => m.ownerId === null);
-    const personalMachines = machines.filter(m => m.ownerId === user?.id);
+    const sharedMachines = machines.filter((m) => m.ownerId === null);
+    const personalMachines = machines.filter((m) => m.ownerId === user?.id);
 
     return (
         <div className="min-h-screen flex flex-col bg-gray-100 dark:bg-gray-900">
@@ -78,10 +77,7 @@ export const Dashboard = () => {
                                 Admin Panel
                             </a>
                         )}
-                        <button
-                            onClick={logout}
-                            className="px-4 py-2 text-sm bg-red-600 text-white rounded hover:bg-red-700"
-                        >
+                        <button onClick={logout} className="px-4 py-2 text-sm bg-red-600 text-white rounded hover:bg-red-700">
                             Logout
                         </button>
                     </div>
@@ -90,12 +86,7 @@ export const Dashboard = () => {
 
             {/* VNC Tabs */}
             {openTabs.length > 0 && (
-                <VncTabManager
-                    tabs={openTabs}
-                    activeTab={activeTab}
-                    onTabClick={setActiveTab}
-                    onTabClose={closeTab}
-                />
+                <VncTabManager tabs={openTabs} activeTab={activeTab} onTabClick={setActiveTab} onTabClose={closeTab} />
             )}
 
             {/* Main Content */}
@@ -109,7 +100,6 @@ export const Dashboard = () => {
                         ) : (
                             <MachineList machines={sharedMachines} onOpen={openMachine} onRefresh={fetchMachines} />
                         )}
-
                         <h2 className="text-lg font-semibold mt-8 mb-4 text-gray-900 dark:text-white">My Machines</h2>
                         <MachineList machines={personalMachines} onOpen={openMachine} onRefresh={fetchMachines} canEdit />
                     </div>
@@ -117,12 +107,12 @@ export const Dashboard = () => {
 
                 {/* VNC Display Area */}
                 <main className="flex-1 bg-gray-50 dark:bg-gray-900">
-                    {activeTab && openTabs.find(t => t.id === activeTab) ? (
+                    {activeTab && openTabs.find((t) => t.id === activeTab) ? (
                         <div className="h-full">
                             <iframe
-                                src={`http://localhost:6080/vnc.html?host=${openTabs.find(t => t.id === activeTab)?.host}&port=${openTabs.find(t => t.id === activeTab)?.port}`}
+                                src={`${import.meta.env.VITE_NOVNC_URL}?host=${openTabs.find((t) => t.id === activeTab)?.host}&port=${openTabs.find((t) => t.id === activeTab)?.port}`}
                                 className="w-full h-full border-0"
-                                title={openTabs.find(t => t.id === activeTab)?.name}
+                                title={openTabs.find((t) => t.id === activeTab)?.name}
                             />
                         </div>
                     ) : (
